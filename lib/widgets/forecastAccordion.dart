@@ -56,9 +56,8 @@ class _ForecastAccordionState extends State<ForecastAccordion> {
               _data[index].isExpanded = !isExpanded;
             });
           },
-          children:
-              _data.map<custom.ExpansionPanel>((ForecastAccordionItem item) {
-            return custom.ExpansionPanel(
+          children: _data.map<ExpansionPanel>((ForecastAccordionItem item) {
+            return ExpansionPanel(
               canTapOnHeader: true,
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTileTheme(

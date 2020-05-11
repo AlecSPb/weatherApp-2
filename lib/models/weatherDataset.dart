@@ -6,6 +6,7 @@ class WeatherDataset {
   double temp;
   double tempMin;
   double tempMax;
+  DateTime dateTime;
 
   WeatherDataset({
     this.icon,
@@ -15,6 +16,7 @@ class WeatherDataset {
     this.temp,
     this.tempMin,
     this.tempMax,
+    this.dateTime,
   });
 
   factory WeatherDataset.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class WeatherDataset {
       temp: json['main']['temp'].toDouble(),
       tempMin: json['main']['temp_min'].toDouble(),
       tempMax: json['main']['temp_max'].toDouble(),
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json["dt"].toInt() * 1000),
     );
   }
 }
