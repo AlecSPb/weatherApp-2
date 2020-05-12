@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp/core/app/app_config.dart';
-import 'package:weatherapp/data/injectors/weather_injector.dart';
+import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/pages/home/home_page.dart';
 import 'package:weatherapp/pages/settings/settings_page.dart';
-import 'package:weatherapp/providers/preferences/preferences_provider.dart';
-import 'package:weatherapp/providers/weather/weather_provider.dart';
+import 'package:weatherapp/providers/global/config/config_provider.dart';
+import 'package:weatherapp/providers/global/preferences/preferences_provider.dart';
+import 'package:weatherapp/providers/global/weather/weather_provider.dart';
 import 'package:weatherapp/routes.dart';
 
 class WeatherApp extends StatefulWidget {
@@ -27,6 +28,7 @@ class _WeatherAppState extends State<WeatherApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider(create: (context) => ConfigProvider(appConfig)),
         Provider(create: (context) => PreferencesProvider()),
         Provider(
           create: (context) => WeatherProvider(
@@ -34,7 +36,7 @@ class _WeatherAppState extends State<WeatherApp> {
               openWeatherEndpoint: appConfig.openWeatherEndpoint),
         ),
       ],
-      child: WeatherInjector(
+      child: WeatherScope(
         child: MaterialApp(
           title: 'Welcome to Flutter - Weather App',
           initialRoute: AppRoutes.home,

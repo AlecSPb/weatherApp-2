@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp/models/userPreferences.dart';
-import 'package:weatherapp/providers/preferences/preferences_provider.dart';
+import 'package:weatherapp/providers/global/preferences/preferences_provider.dart';
 import 'package:weatherapp/routes.dart';
 import 'package:weatherapp/widgets/checkboxFormField.dart';
 
@@ -53,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
           color: Colors.black,
         ),
         title: Text(
-          "Einstellungen",
+          "Settings",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -77,8 +77,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          customLocationField(),
                           geolocationCheckbox(),
+                          customLocationField(),
                           submitButton(context),
                         ],
                       ),
@@ -93,12 +93,12 @@ class _SettingsPageState extends State<SettingsPage> {
       initialValue: _customLocation,
       enabled: !_useGeolocation,
       decoration: InputDecoration(
-        labelText: 'Ort',
+        labelText: 'City or ZIP',
       ),
       // The validator receives the text that the user has entered.
       validator: (String value) {
         if (!_useGeolocation) {
-          if (value.isEmpty) return 'Bitte Ort angeben.';
+          if (value.isEmpty) return 'Please enter a city or ZIP code.';
         }
 
         return null;
@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget geolocationCheckbox() {
     return CheckboxFormField(
       context: context,
-      title: const Text('Standorterfassung nutzen'),
+      title: const Text('Use current location'),
       initialValue: _useGeolocation,
       onChange: _setUseGeolocation,
       onSaved: (bool value) => _useGeolocation = value,
@@ -139,7 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
           });
         }
       },
-      child: Text('Speichern'),
+      child: Text('Save'),
     );
   }
 }

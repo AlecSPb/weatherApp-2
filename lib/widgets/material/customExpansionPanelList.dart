@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:weatherapp/widgets/material/customMergeableMaterialItem.dart'
+    as custom;
+
 const double _kPanelHeaderCollapsedHeight = kMinInteractiveDimension;
 const double _kPanelHeaderExpandedHeight = 64.0;
 
@@ -122,6 +125,7 @@ class ExpansionPanelList extends StatefulWidget {
     this.animationDuration = kThemeAnimationDuration,
     this.iconColor,
     this.showIcon = true,
+    this.elevation = 2,
   })  : assert(children != null),
         assert(animationDuration != null),
         _allowOnlyOnePanelOpen = false,
@@ -212,6 +216,7 @@ class ExpansionPanelList extends StatefulWidget {
     this.initialOpenPanelValue,
     this.iconColor,
     this.showIcon,
+    this.elevation,
   })  : assert(children != null),
         assert(animationDuration != null),
         _allowOnlyOnePanelOpen = true,
@@ -255,6 +260,8 @@ class ExpansionPanelList extends StatefulWidget {
 
   // Decides whether the indicator icon should be shown.
   final bool showIcon;
+
+  final int elevation;
 
   @override
   State<StatefulWidget> createState() => _ExpansionPanelListState();
@@ -345,13 +352,14 @@ class _ExpansionPanelListState extends State<ExpansionPanelList> {
 
   @override
   Widget build(BuildContext context) {
-    final List<MergeableMaterialItem> items = <MergeableMaterialItem>[];
+    final List<custom.MergeableMaterialItem> items =
+        <custom.MergeableMaterialItem>[];
     const EdgeInsets kExpandedEdgeInsets = EdgeInsets.symmetric(
         vertical: _kPanelHeaderExpandedHeight - _kPanelHeaderCollapsedHeight);
 
     for (int index = 0; index < widget.children.length; index += 1) {
       if (_isChildExpanded(index) && index != 0 && !_isChildExpanded(index - 1))
-        items.add(MaterialGap(
+        items.add(custom.MaterialGap(
             key: _SaltedKey<BuildContext, int>(context, index * 2 - 1)));
 
       final ExpansionPanel child = widget.children[index];
@@ -412,7 +420,7 @@ class _ExpansionPanelListState extends State<ExpansionPanelList> {
         );
       }
       items.add(
-        MaterialSlice(
+        custom.MaterialSlice(
           key: _SaltedKey<BuildContext, int>(context, index * 2),
           child: Column(
             children: <Widget>[
@@ -436,13 +444,14 @@ class _ExpansionPanelListState extends State<ExpansionPanelList> {
       );
 
       if (_isChildExpanded(index) && index != widget.children.length - 1)
-        items.add(MaterialGap(
+        items.add(custom.MaterialGap(
             key: _SaltedKey<BuildContext, int>(context, index * 2 + 1)));
     }
 
-    return MergeableMaterial(
+    return custom.MergeableMaterial(
       hasDividers: true,
       children: items,
+      elevation: widget.elevation,
     );
   }
 }

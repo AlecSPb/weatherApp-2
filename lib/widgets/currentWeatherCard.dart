@@ -1,8 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:weatherapp/data/injectors/weather_injector.dart';
+import 'package:provider/provider.dart';
+
+import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/models/weatherDataset.dart';
+import 'package:weatherapp/providers/global/config/config_provider.dart';
+import 'package:weatherapp/util/extensions/string_extension.dart';
 
 class CurrentWeatherCard extends StatefulWidget {
   @override
@@ -30,7 +33,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
 
   @override
   Widget build(BuildContext context) {
-    final weatherBloc = WeatherInjector.of(context);
+    final weatherBloc = WeatherScope.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -39,6 +42,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // TODO the StreamBuilder should be moved outside the widget, the widget should be reusable
               StreamBuilder(
                 stream: weatherBloc.currentWeather,
                 builder: (BuildContext context,
@@ -51,26 +55,36 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                         child: new CircularProgressIndicator(),
                       );
                     default:
+                      ConfigProvider configProvider =
+                          Provider.of<ConfigProvider>(context);
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.network(
-                            'https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png',
-                          ),
                           Row(
                             children: <Widget>[
-                              Text("${snapshot.data.temp.toString()} ",
-                                  style: TextStyle(color: Colors.white)),
+                              Text("${snapshot.data.temp.toString()}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 64,
+                                  )),
                               Text("°",
                                   style: TextStyle(
-                                      color: _showDegreeSymbol
-                                          ? Colors.white
-                                          : Colors.transparent)),
-                              Text("C", style: TextStyle(color: Colors.white)),
+                                    color: _showDegreeSymbol
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    fontSize: 64,
+                                  )),
                             ],
                           ),
                           Text("${snapshot.data.name}",
                               style: TextStyle(color: Colors.white)),
+                          Text(
+                            "${snapshot.data.description.capitalize()}",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          Image.network(
+                            '${configProvider.appConfig.openWeatherImageUrl}/${snapshot.data.icon}@2x.png',
+                          ),
                         ],
                       );
                   }

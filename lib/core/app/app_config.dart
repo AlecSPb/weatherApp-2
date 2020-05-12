@@ -2,6 +2,7 @@ abstract class AppConfig {
   String appName;
   String openWeatherEndpoint;
   String openWeatherApiKey;
+  String openWeatherImageUrl;
 }
 
 class DevConfig implements AppConfig {
@@ -13,6 +14,9 @@ class DevConfig implements AppConfig {
 
   @override
   String openWeatherApiKey = "662c3ceb4273ab998624e819fbdcd93f";
+
+  @override
+  String openWeatherImageUrl = "https://openweathermap.org/img/wn";
 }
 
 class StageConfig implements AppConfig {
@@ -24,6 +28,9 @@ class StageConfig implements AppConfig {
 
   @override
   String openWeatherApiKey = "662c3ceb4273ab998624e819fbdcd93f";
+
+  @override
+  String openWeatherImageUrl = "https://openweathermap.org/img/wn";
 }
 
 class ProdConfig implements AppConfig {
@@ -35,4 +42,7 @@ class ProdConfig implements AppConfig {
 
   @override
   String openWeatherApiKey = "662c3ceb4273ab998624e819fbdcd93f";
+
+  @override
+  String openWeatherImageUrl = "https://openweathermap.org/img/wn";
 }

@@ -1,4 +1,5 @@
 class WeatherDataset {
+  String description;
   String icon;
   double lon;
   double lat;
@@ -9,6 +10,7 @@ class WeatherDataset {
   DateTime dateTime;
 
   WeatherDataset({
+    this.description,
     this.icon,
     this.lon,
     this.lat,
@@ -21,6 +23,7 @@ class WeatherDataset {
 
   factory WeatherDataset.fromJson(Map<String, dynamic> json) {
     return WeatherDataset(
+      description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],
       lon: json['lon']?.toDouble(),
       lat: json['lat']?.toDouble(),

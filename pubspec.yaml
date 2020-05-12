@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,7 +28,9 @@ dependencies:
   shared_preferences: ^0.5.7+1
   http: ^0.12.1
   flutter_conditional_rendering: ^1.1.1
-  collection: ^1.14.12
+  collection: ^1.14.11
+  rxdart: ^0.24.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
