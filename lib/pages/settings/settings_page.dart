@@ -77,9 +77,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          geolocationCheckbox(),
-                          customLocationField(),
-                          submitButton(context),
+                          _buildUseGeolocationCheckbox(),
+                          _buildCustomLocationField(),
+                          _buildSubmitButton(context),
                         ],
                       ),
                     );
@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget customLocationField() {
+  Widget _buildCustomLocationField() {
     return TextFormField(
       initialValue: _customLocation,
       enabled: !_useGeolocation,
@@ -107,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget geolocationCheckbox() {
+  Widget _buildUseGeolocationCheckbox() {
     return CheckboxFormField(
       context: context,
       title: const Text('Use current location'),
@@ -117,7 +117,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget submitButton(BuildContext context) {
+  Widget _buildSubmitButton(BuildContext context) {
     return FlatButton(
       color: Colors.blue,
       textColor: Colors.white,

@@ -3,6 +3,8 @@ abstract class AppConfig {
   String openWeatherEndpoint;
   String openWeatherApiKey;
   String openWeatherImageUrl;
+  int updateCurrentWeatherIntervalSeconds;
+  int updateDailyForecastIntervalSeconds;
 }
 
 class DevConfig implements AppConfig {
@@ -17,6 +19,12 @@ class DevConfig implements AppConfig {
 
   @override
   String openWeatherImageUrl = "https://openweathermap.org/img/wn";
+
+  @override
+  int updateCurrentWeatherIntervalSeconds = 5;
+
+  @override
+  int updateDailyForecastIntervalSeconds = 30;
 }
 
 class StageConfig implements AppConfig {
@@ -31,6 +39,12 @@ class StageConfig implements AppConfig {
 
   @override
   String openWeatherImageUrl = "https://openweathermap.org/img/wn";
+
+  @override
+  int updateCurrentWeatherIntervalSeconds = 5;
+
+  @override
+  int updateDailyForecastIntervalSeconds = 30;
 }
 
 class ProdConfig implements AppConfig {
@@ -45,4 +59,10 @@ class ProdConfig implements AppConfig {
 
   @override
   String openWeatherImageUrl = "https://openweathermap.org/img/wn";
+
+  @override
+  int updateCurrentWeatherIntervalSeconds = 5;
+
+  @override
+  int updateDailyForecastIntervalSeconds = 30;
 }

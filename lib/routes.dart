@@ -15,7 +15,7 @@ class AppRoutes {
     }
   }
 
-  static void push(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  static Future push(BuildContext context, String routeName) {
+    return Navigator.pushNamed(context, routeName);
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:weatherapp/core/app/app_config.dart';
 import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/pages/home/home_page.dart';
 import 'package:weatherapp/pages/settings/settings_page.dart';
 import 'package:weatherapp/providers/global/config/config_provider.dart';
+import 'package:weatherapp/providers/global/location/location_provider.dart';
 import 'package:weatherapp/providers/global/preferences/preferences_provider.dart';
 import 'package:weatherapp/providers/global/weather/weather_provider.dart';
 import 'package:weatherapp/routes.dart';
@@ -34,6 +36,9 @@ class _WeatherAppState extends State<WeatherApp> {
           create: (context) => WeatherProvider(
               openWeatherApiKey: appConfig.openWeatherApiKey,
               openWeatherEndpoint: appConfig.openWeatherEndpoint),
+        ),
+        Provider(
+          create: (context) => LocationProvider(),
         ),
       ],
       child: WeatherScope(
