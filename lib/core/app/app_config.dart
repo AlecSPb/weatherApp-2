@@ -5,6 +5,7 @@ abstract class AppConfig {
   String openWeatherImageUrl;
   int updateCurrentWeatherIntervalSeconds;
   int updateDailyForecastIntervalSeconds;
+  String defaultFallbackCity;
 }
 
 class DevConfig implements AppConfig {
@@ -25,6 +26,9 @@ class DevConfig implements AppConfig {
 
   @override
   int updateDailyForecastIntervalSeconds = 30;
+
+  @override
+  String defaultFallbackCity = "Berlin";
 }
 
 class StageConfig implements AppConfig {
@@ -45,6 +49,9 @@ class StageConfig implements AppConfig {
 
   @override
   int updateDailyForecastIntervalSeconds = 30;
+
+  @override
+  String defaultFallbackCity = "Berlin";
 }
 
 class ProdConfig implements AppConfig {
@@ -65,4 +72,7 @@ class ProdConfig implements AppConfig {
 
   @override
   int updateDailyForecastIntervalSeconds = 30;
+
+  @override
+  String defaultFallbackCity = "Berlin";
 }

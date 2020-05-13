@@ -23,22 +23,27 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    PreferencesProvider preferencesProvider =
-        Provider.of<PreferencesProvider>(context);
-    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
-    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
-    ConfigProvider configProvider = Provider.of<ConfigProvider>(context);
-    _homeProvider = HomeProvider(
-      preferencesProvider: preferencesProvider,
-      locationProvider: locationProvider,
-      weatherProvider: weatherProvider,
-      configProvider: configProvider,
-    );
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+    if (_homeProvider == null) {
+      PreferencesProvider preferencesProvider =
+          Provider.of<PreferencesProvider>(context);
+      LocationProvider locationProvider =
+          Provider.of<LocationProvider>(context);
+      WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
+      ConfigProvider configProvider = Provider.of<ConfigProvider>(context);
+      _homeProvider = HomeProvider(
+        preferencesProvider: preferencesProvider,
+        locationProvider: locationProvider,
+        weatherProvider: weatherProvider,
+        configProvider: configProvider,
+      );
+    }
+
     _homeProvider.initProvider(context);
   }
 

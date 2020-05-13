@@ -25,21 +25,43 @@ class HomeProvider {
   });
 
   Future<void> initProvider(BuildContext context) async {
-    final weatherBloc = WeatherScope.of(context);
+    _updateWeatherData(context);
 
+    if (_timer == null) {
+      _timer = Timer.periodic(
+          Duration(
+              seconds: this
+                  .configProvider
+                  .appConfig
+                  .updateCurrentWeatherIntervalSeconds), (Timer t) {
+        _updateWeatherData(context);
+      });
+    }
+  }
+
+  void disposeProvider() {
     _timer?.cancel();
+  }
+
+  void pushSettings(BuildContext context) async {
+    await AppRoutes.push(context, "/settings");
+  }
+
+  void _updateWeatherData(BuildContext context) {
+    final weatherBloc = WeatherScope.of(context);
     preferencesProvider.getUseGeolocation().then((bool useGeolocation) {
       // If geolocation is not enabled use city or zip
       if (useGeolocation == null || useGeolocation != true) {
         preferencesProvider.getCustomLocation().then((String name) {
           if (name == null || name.isEmpty) {
-            // TODO default city should come from the settings
             _fetchWeatherDataByCity(weatherBloc, "Berlin");
           } else {
             _fetchWeatherDataByCity(weatherBloc, name);
           }
         });
-      } else {
+      }
+      // Use Geolocation
+      else {
         final geolocationBloc = GeolocationScope.of(context);
         geolocationBloc.changeLocation(locationProvider.userLocation);
         locationProvider.updatePosition().then((_) {
@@ -51,63 +73,20 @@ class HomeProvider {
     });
   }
 
-  void disposeProvider() {
-    _timer?.cancel();
-  }
-
-  void pushSettings(BuildContext context) async {
-    await AppRoutes.push(context, "/settings");
-  }
-
   void _fetchWeatherDataByCity(WeatherBloc weatherBloc, String name) {
-    weatherProvider.fetchCurrentWeatherByCity(name).then((currentWeather) {
-      weatherBloc.changeCurrentWeather(currentWeather);
-      _timer = Timer.periodic(
-        Duration(
-            seconds: this
-                .configProvider
-                .appConfig
-                .updateCurrentWeatherIntervalSeconds),
-        (Timer t) {
-          weatherProvider
-              .fetchCurrentWeatherByCity(name)
-              .then((currentWeather) {
-            weatherBloc.changeCurrentWeather(currentWeather);
-          });
-        },
-      );
-    });
+    weatherProvider.fetchCurrentWeatherByCity(name).then(
+        (weatherDataset) => weatherBloc.changeCurrentWeather(weatherDataset));
 
-    weatherProvider.fetchWeatherForecastByCity(name).then((weatherDatasets) {
-      weatherBloc.changeWeatherForecast(weatherDatasets);
-    });
+    weatherProvider.fetchWeatherForecastByCity(name).then((weatherDatasets) =>
+        weatherBloc.changeWeatherForecast(weatherDatasets));
   }
 
   void _fetchWeatherDataByCoords(WeatherBloc weatherBloc, int lat, int lon) {
-    weatherProvider
-        .fetchCurrentWeatherByCoords(lat, lon)
-        .then((currentWeather) {
-      weatherBloc.changeCurrentWeather(currentWeather);
-      _timer = Timer.periodic(
-        Duration(
-            seconds: this
-                .configProvider
-                .appConfig
-                .updateCurrentWeatherIntervalSeconds),
-        (Timer t) {
-          weatherProvider
-              .fetchCurrentWeatherByCoords(lat, lon)
-              .then((currentWeather) {
-            weatherBloc.changeCurrentWeather(currentWeather);
-          });
-        },
-      );
-    });
+    weatherProvider.fetchCurrentWeatherByCoords(lat, lon).then(
+        (weatherDataset) => weatherBloc.changeCurrentWeather(weatherDataset));
 
-    weatherProvider
-        .fetchWeatherForecastByCoords(lat, lon)
-        .then((weatherDatasets) {
-      weatherBloc.changeWeatherForecast(weatherDatasets);
-    });
+    weatherProvider.fetchWeatherForecastByCoords(lat, lon).then(
+        (weatherDatasets) =>
+            weatherBloc.changeWeatherForecast(weatherDatasets));
   }
 }
