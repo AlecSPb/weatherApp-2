@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weatherapp/data/scopes/weather_scope.dart';
-import 'package:weatherapp/models/dailyForecast.dart';
 import 'package:weatherapp/providers/global/config/config_provider.dart';
 import 'package:weatherapp/providers/global/location/location_provider.dart';
 import 'package:weatherapp/providers/global/preferences/preferences_provider.dart';
