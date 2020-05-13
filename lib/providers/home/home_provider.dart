@@ -27,6 +27,7 @@ class HomeProvider {
   Future<void> initProvider(BuildContext context) async {
     final weatherBloc = WeatherScope.of(context);
 
+    _timer?.cancel();
     preferencesProvider.getUseGeolocation().then((bool useGeolocation) {
       // If geolocation is not enabled use city or zip
       if (useGeolocation == null || useGeolocation != true) {

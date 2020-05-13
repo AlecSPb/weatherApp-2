@@ -23,11 +23,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     PreferencesProvider preferencesProvider =
         Provider.of<PreferencesProvider>(context);
     LocationProvider locationProvider = Provider.of<LocationProvider>(context);
@@ -39,6 +34,11 @@ class _HomePageState extends State<HomePage> {
       weatherProvider: weatherProvider,
       configProvider: configProvider,
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _homeProvider.initProvider(context);
   }
 
