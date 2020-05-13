@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weatherapp/core/app/app_config.dart';
+import 'package:weatherapp/data/scopes/geolocation_scope.dart';
 import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/pages/home/home_page.dart';
 import 'package:weatherapp/pages/settings/settings_page.dart';
@@ -42,6 +43,7 @@ class _WeatherAppState extends State<WeatherApp> {
         ),
       ],
       child: WeatherScope(
+          child: GeolocationScope(
         child: MaterialApp(
           title: 'Welcome to Flutter - Weather App',
           initialRoute: AppRoutes.home,
@@ -50,7 +52,7 @@ class _WeatherAppState extends State<WeatherApp> {
             AppRoutes.settings: (BuildContext context) => new SettingsPage()
           },
         ),
-      ),
+      )),
     );
   }
 }

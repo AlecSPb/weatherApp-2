@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:weatherapp/data/blocs/weather_bloc.dart';
+import 'package:weatherapp/data/scopes/geolocation_scope.dart';
 
 import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/providers/global/config/config_provider.dart';
@@ -31,12 +32,15 @@ class HomeProvider {
       if (useGeolocation == null || useGeolocation != true) {
         preferencesProvider.getCustomLocation().then((String name) {
           if (name == null || name.isEmpty) {
+            // TODO default city should come from the settings
             _fetchWeatherDataByCity(weatherBloc, "Berlin");
           } else {
             _fetchWeatherDataByCity(weatherBloc, name);
           }
         });
       } else {
+        final geolocationBloc = GeolocationScope.of(context);
+        geolocationBloc.changeLocation(locationProvider.userLocation);
         locationProvider.updatePosition().then((_) {
           int lat = locationProvider.userLocation.latitude.toInt();
           int lon = locationProvider.userLocation.longitude.toInt();
