@@ -86,23 +86,36 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
                   ),
-                  CurrentWeatherCard(),
                   StreamBuilder(
-                    stream: weatherBloc.weatherForecast,
+                    stream: weatherBloc.weatherDataLoaded,
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<DailyForecast>> snapshot) {
+                        AsyncSnapshot<Map<String, dynamic>> snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
-                          return Theme(
-                            data: Theme.of(context)
-                                .copyWith(accentColor: Colors.white),
-                            child: const CircularProgressIndicator(),
+                          return Container(
+                            height: 400.0,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Theme(
+                                    data: Theme.of(context)
+                                        .copyWith(accentColor: Colors.white),
+                                    child: const CircularProgressIndicator(),
+                                  ),
+                                ]),
                           );
                         default:
-                          return ForecastAccordion(snapshot.data);
+                          return Column(
+                            children: <Widget>[
+                              CurrentWeatherCard(
+                                  snapshot.data['currentWeather']),
+                              ForecastAccordion(
+                                  snapshot.data['weatherForecast'])
+                            ],
+                          );
                       }
                     },
-                  )
+                  ),
                 ],
               ),
             )),
