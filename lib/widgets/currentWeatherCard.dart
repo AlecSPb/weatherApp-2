@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:weatherapp/data/scopes/weather_scope.dart';
 import 'package:weatherapp/models/weatherDataset.dart';
 import 'package:weatherapp/providers/global/config/config_provider.dart';
 import 'package:weatherapp/util/extensions/string_extension.dart';

@@ -35,8 +35,10 @@ class _WeatherAppState extends State<WeatherApp> {
         Provider(create: (context) => PreferencesProvider()),
         Provider(
           create: (context) => WeatherProvider(
-              openWeatherApiKey: appConfig.openWeatherApiKey,
-              openWeatherEndpoint: appConfig.openWeatherEndpoint),
+            openWeatherApiKey: appConfig.openWeatherApiKey,
+            openWeatherEndpoint: appConfig.openWeatherEndpoint,
+            temperatureUnits: appConfig.temperatureUnits,
+          ),
         ),
         Provider(
           create: (context) => LocationProvider(),
@@ -48,8 +50,8 @@ class _WeatherAppState extends State<WeatherApp> {
           title: 'Welcome to Flutter - Weather App',
           initialRoute: AppRoutes.home,
           routes: <String, WidgetBuilder>{
-            AppRoutes.home: (BuildContext context) => new HomePage(),
-            AppRoutes.settings: (BuildContext context) => new SettingsPage()
+            AppRoutes.home: (BuildContext context) => HomePage(),
+            AppRoutes.settings: (BuildContext context) => SettingsPage()
           },
         ),
       )),

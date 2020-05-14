@@ -6,6 +6,7 @@ abstract class AppConfig {
   int updateCurrentWeatherIntervalSeconds;
   int updateDailyForecastIntervalSeconds;
   String defaultFallbackCity;
+  String temperatureUnits;
 }
 
 class DevConfig implements AppConfig {
@@ -29,6 +30,9 @@ class DevConfig implements AppConfig {
 
   @override
   String defaultFallbackCity = "Berlin";
+
+  @override
+  String temperatureUnits = "metric";
 }
 
 class StageConfig implements AppConfig {
@@ -52,6 +56,9 @@ class StageConfig implements AppConfig {
 
   @override
   String defaultFallbackCity = "Berlin";
+
+  @override
+  String temperatureUnits = "metric";
 }
 
 class ProdConfig implements AppConfig {
@@ -75,4 +82,7 @@ class ProdConfig implements AppConfig {
 
   @override
   String defaultFallbackCity = "Berlin";
+
+  @override
+  String temperatureUnits = "metric";
 }

@@ -28,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
       preferencesProvider.getCustomLocation(),
       preferencesProvider.getUseGeolocation()
     ]).then((res) {
-      return new UserPreferences(
+      return UserPreferences(
           customLocation: res[0] != null ? res[0] : "",
           useGeolocation: res[1] != null ? res[1] : false);
     });
@@ -47,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.black,

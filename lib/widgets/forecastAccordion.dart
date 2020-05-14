@@ -53,8 +53,8 @@ class _ForecastAccordionState extends State<ForecastAccordion> {
     return Theme(
       data: Theme.of(context).copyWith(
         cardColor: Colors.white12,
-        textTheme: new TextTheme(
-          body1: new TextStyle(color: Colors.white),
+        textTheme: TextTheme(
+          body1: TextStyle(color: Colors.white),
         ),
       ),
       child: custom.ExpansionPanelList(
@@ -102,7 +102,7 @@ class _ForecastAccordionState extends State<ForecastAccordion> {
           ),
         ),
         Text(
-          new DateFormat('EEEE').format(dataset.dateTime),
+          DateFormat('EEEE').format(dataset.dateTime),
         ),
       ],
     );
