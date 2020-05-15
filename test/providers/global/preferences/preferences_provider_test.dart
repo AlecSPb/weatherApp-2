@@ -8,11 +8,13 @@ void main() {
 
   final PreferencesProvider preferencesProvider = PreferencesProvider();
 
-  test("Should set and return preference values.", () async {
-    expect(await preferencesProvider.setUseGeolocation(true), true);
-    expect(await preferencesProvider.getUseGeolocation(), true);
+  group("PreferencesProvider", () {
+    test("Should set and return preference values.", () async {
+      expect(await preferencesProvider.setUseGeolocation(true), true);
+      expect(await preferencesProvider.getUseGeolocation(), true);
 
-    expect(await preferencesProvider.setCustomLocation("Stuttgart"), true);
-    expect(await preferencesProvider.getCustomLocation(), "Stuttgart");
+      expect(await preferencesProvider.setCustomLocation("Stuttgart"), true);
+      expect(await preferencesProvider.getCustomLocation(), "Stuttgart");
+    });
   });
 }
