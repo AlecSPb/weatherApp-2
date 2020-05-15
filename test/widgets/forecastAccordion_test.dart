@@ -9,7 +9,7 @@ import 'package:weatherapp/models/weatherDataset.dart';
 import 'package:weatherapp/providers/global/config/config_provider.dart';
 import 'package:weatherapp/widgets/forecastAccordion.dart';
 
-import '../_http_overrides.dart';
+import '../test_helper/http_overrides.dart';
 
 // Mock data
 DailyForecast forecast = DailyForecast(
