@@ -31,6 +31,7 @@ dependencies:
   collection: ^1.14.11
   rxdart: ^0.24.0
   intl: ^0.16.1
+  mockito: ^4.1.1
 
 dev_dependencies:
   flutter_test:

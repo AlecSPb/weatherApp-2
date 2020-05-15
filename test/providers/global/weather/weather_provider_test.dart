@@ -108,15 +108,14 @@ void main() {
   });
 
   group("WeatherProvider", () {
-    test("fetchCurrentWeatherByCity should return a WeatherDataset model.",
-        () async {
+    test("fetchCurrentWeatherByCity returns a WeatherDataset model.", () async {
       final WeatherDataset currentWeatherDataset =
           await weatherProvider.fetchCurrentWeatherByCity("Stuttgart");
 
       expect(currentWeatherDataset.temp, 281.52);
     });
 
-    test("fetchCurrentWeatherByCoords should return a WeatherDataset model.",
+    test("fetchCurrentWeatherByCoords returns a WeatherDataset model.",
         () async {
       final WeatherDataset currentWeatherDataset =
           await weatherProvider.fetchCurrentWeatherByCoords(0, 0);
@@ -124,7 +123,7 @@ void main() {
       expect(currentWeatherDataset.temp, 281.52);
     });
 
-    test("fetchWeatherForecastByCity should return a list of WeatherDataset.",
+    test("fetchWeatherForecastByCity returns a list of WeatherDataset.",
         () async {
       final List<WeatherDataset> forecastDatasets =
           await weatherProvider.fetchWeatherForecastByCity("Stuttgart");
@@ -132,7 +131,7 @@ void main() {
       expect(forecastDatasets.first.temp, 284.92);
     });
 
-    test("fetchWeatherForecastByCoords should return a list of WeatherDataset.",
+    test("fetchWeatherForecastByCoords returns a list of WeatherDataset.",
         () async {
       final List<WeatherDataset> forecastDatasets =
           await weatherProvider.fetchWeatherForecastByCoords(0, 0);

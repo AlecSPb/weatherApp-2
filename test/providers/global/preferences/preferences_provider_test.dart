@@ -6,7 +6,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
 
-  final PreferencesProvider preferencesProvider = PreferencesProvider();
+  PreferencesProvider preferencesProvider = PreferencesProvider();
+
+  setUp(() {
+    preferencesProvider = PreferencesProvider();
+  });
 
   group("PreferencesProvider", () {
     test("Should set and return preference values.", () async {
