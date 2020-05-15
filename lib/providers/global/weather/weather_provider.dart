@@ -30,7 +30,7 @@ class WeatherProvider {
 
   Future<WeatherDataset> fetchCurrentWeatherByCoords(int lat, int lon) async {
     final response = await client.get(
-        "$openWeatherEndpoint/weather?lat=$lat&lon=$lon&appid=$openWeatherApiKey&units=metric");
+        "$openWeatherEndpoint/weather?lat=$lat&lon=$lon&appid=$openWeatherApiKey&units=$temperatureUnits");
 
     if (response.statusCode == 200) {
       return WeatherDataset.fromJson(json.decode(response.body));
@@ -42,7 +42,7 @@ class WeatherProvider {
   Future<List<WeatherDataset>> fetchWeatherForecastByCoords(
       int lat, int lon) async {
     final response = await client.get(
-        "$openWeatherEndpoint/forecast?lat=$lat&lon=$lon&appid=$openWeatherApiKey&units=metric");
+        "$openWeatherEndpoint/forecast?lat=$lat&lon=$lon&appid=$openWeatherApiKey&units=$temperatureUnits");
 
     if (response.statusCode == 200) {
       return _getWeatherDatasetList(response.body);

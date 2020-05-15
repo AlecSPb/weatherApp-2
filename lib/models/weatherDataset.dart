@@ -25,8 +25,8 @@ class WeatherDataset {
     return WeatherDataset(
       description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],
-      lon: json['lon']?.toDouble(),
-      lat: json['lat']?.toDouble(),
+      lon: json['coord'] != null ? json['coord']['lon'].toDouble() : null,
+      lat: json['coord'] != null ? json['coord']['lat'].toDouble() : null,
       name: json['name'],
       temp: json['main']['temp'].toDouble(),
       tempMin: json['main']['temp_min'].toDouble(),
